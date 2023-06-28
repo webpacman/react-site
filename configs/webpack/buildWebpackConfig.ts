@@ -13,7 +13,7 @@ export function buildWebpackConfig({ env, paths }: BuildWebpackOptions): Configu
     plugins: buildPlugins(paths.htmlTemlate),
     output: buildOutput(paths.build),
     module: buildModule(),
-    resolve: buildResolve(),
+    resolve: buildResolve(paths.src),
     ...buildOther({ env, paths }),
   };
 

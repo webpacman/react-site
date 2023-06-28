@@ -13,6 +13,7 @@ export interface WebpackPaths {
   htmlTemlate: string;
   build: string;
   entry: string;
+  src: string;
 }
 
 export interface BuildWebpackOptions {

@@ -9,17 +9,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
   ],
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
-    },
-  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -30,8 +19,10 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      alias: {
+        map: [
+          ['@', './src'],
+        ],
       },
     },
   },
@@ -44,15 +35,17 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': [
       'error',
-      'ignorePackages',
       {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
+        extensions: ['.js', '.jsx', '.tsx'],
       },
     ],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': ['warn', {
+      devDependencies: true,
+    }],
     'import/no-import-module-exports': 'off',
+    'react/require-default-props': 'off',
+    'no-shadow': 'off',
+    'react/function-component-definition': 'off',
+    'max-len': ['error', { code: 120, ignoreComments: true }],
   },
 };

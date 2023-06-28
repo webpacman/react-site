@@ -7,6 +7,7 @@ module.exports = (env: WebpackEnvConfig): Configuration => {
     build: path.resolve(__dirname, 'build'),
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     htmlTemlate: path.resolve(__dirname, 'public', 'index.html'),
+    src: path.resolve(__dirname, 'src'),
   };
 
   return buildWebpackConfig({ paths, env });
