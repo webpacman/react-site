@@ -1,65 +1,13 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-// todo MiniCssExtractPlugin
+import path from 'path';
+import { buildWebpackConfig } from './configs/webpack/buildWebpackConfig';
+import { Configuration, WebpackEnvConfig, WebpackPaths } from './types/webpackConfigTypes';
 
-import { Configuration as WebpackConfiguration } from "webpack";
-import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+module.exports = (env: WebpackEnvConfig): Configuration => {
+  const paths: WebpackPaths = {
+    build: path.resolve(__dirname, 'build'),
+    entry: path.resolve(__dirname, 'src', 'index.tsx'),
+    htmlTemlate: path.resolve(__dirname, 'public', 'index.html'),
+  };
 
-interface Configuration extends WebpackConfiguration {
-  devServer?: WebpackDevServerConfiguration;
-}
-
-const config: Configuration = {
-  mode: "development",
-  devtool: "inline-source-map",
-  entry: "./src/index.tsx",
-  devServer: {
-    static: "./build",
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
-  output: {
-    filename: "[name].[contenthash].bundle.js",
-    path: path.resolve(__dirname, "build"),
-    clean: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.module\.s(a|c)ss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-              sourceMap: true,
-            },
-          },
-          "sass-loader",
-        ],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        exclude: /\.module.(s(a|c)ss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
-    ],
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js", ".scss"],
-  },
-  optimization: {
-    runtimeChunk: "single",
-  },
+  return buildWebpackConfig({ paths, env });
 };
-
-export default config;

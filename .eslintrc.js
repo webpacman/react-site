@@ -52,5 +52,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-import-module-exports': 'off',
   },
 };
